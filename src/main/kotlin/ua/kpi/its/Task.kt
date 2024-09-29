@@ -80,7 +80,7 @@ fun isPalindrome(input: String): Boolean {
     return input == input.reversed()
 }
 
-// Task 10: Caesar cipherr
+// Task 10: Caesar cipher
 fun caesarCipher(input: String, shift: Int): String {
     val result = StringBuilder()
     for (char in input) {
