@@ -1,0 +1,120 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: testCheckEvenOrOdd
+      id: testcheckevenorodd
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testCheckEvenOrOdd
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testCheckEvenOrOdd"
+        timeout: 5
+        max-score: 2
+    - name: testSumOfFirstFivePrimes
+      id: testsumoffirstfiveprimes
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSumOfFirstFivePrimes
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testSumOfFirstFivePrimes"
+        timeout: 5
+        max-score: 2
+    - name: testSumOfOnesSeries
+      id: testsumofonesseries
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSumOfOnesSeries
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testSumOfOnesSeries"
+        timeout: 5
+        max-score: 2
+    - name: testFibonacci
+      id: testfibonacci
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testFibonacci
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testFibonacci"
+        timeout: 5
+        max-score: 2
+    - name: testReverseString
+      id: testreversestring
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testReverseString
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testReverseString"
+        timeout: 5
+        max-score: 2
+    - name: testFactorial
+      id: testfactorial
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testFactorial
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testFactorial"
+        timeout: 5
+        max-score: 2
+    - name: testFrequencyAnalysis
+      id: testfrequencyanalysis
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testFrequencyAnalysis
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testFrequencyAnalysis"
+        timeout: 5
+        max-score: 2
+    - name: testFindMinimum
+      id: testfindminimum
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testFindMinimum
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testFindMinimum"
+        timeout: 5
+        max-score: 2
+    - name: testIsPalindrome
+      id: testispalindrome
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testIsPalindrome
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testIsPalindrome"
+        timeout: 5
+        max-score: 2
+    - name: testCaesarCipher
+      id: testcaesarcipher
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testCaesarCipher
+        setup-command: ''
+        command: ./gradlew test --tests "ua.kpi.its.TaskTests.testCaesarCipher"
+        timeout: 5
+        max-score: 2
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTCHECKEVENORODD_RESULTS: "${{steps.testcheckevenorodd.outputs.result}}"
+        TESTSUMOFFIRSTFIVEPRIMES_RESULTS: "${{steps.testsumoffirstfiveprimes.outputs.result}}"
+        TESTSUMOFONESSERIES_RESULTS: "${{steps.testsumofonesseries.outputs.result}}"
+        TESTFIBONACCI_RESULTS: "${{steps.testfibonacci.outputs.result}}"
+        TESTREVERSESTRING_RESULTS: "${{steps.testreversestring.outputs.result}}"
+        TESTFACTORIAL_RESULTS: "${{steps.testfactorial.outputs.result}}"
+        TESTFREQUENCYANALYSIS_RESULTS: "${{steps.testfrequencyanalysis.outputs.result}}"
+        TESTFINDMINIMUM_RESULTS: "${{steps.testfindminimum.outputs.result}}"
+        TESTISPALINDROME_RESULTS: "${{steps.testispalindrome.outputs.result}}"
+        TESTCAESARCIPHER_RESULTS: "${{steps.testcaesarcipher.outputs.result}}"
+      with:
+        runners: testcheckevenorodd,testsumoffirstfiveprimes,testsumofonesseries,testfibonacci,testreversestring,testfactorial,testfrequencyanalysis,testfindminimum,testispalindrome,testcaesarcipher
